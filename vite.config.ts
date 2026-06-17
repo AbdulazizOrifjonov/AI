@@ -12,4 +12,11 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  // Without this, nitro's deploy plugin is skipped outside the Lovable sandbox,
+  // so `vite build` on Vercel produces a plain dist/ that Vercel can't serve
+  // (every route 404s). The "vercel" preset makes nitro emit a proper
+  // .vercel/output (Build Output API v3) that Vercel runs natively.
+  nitro: {
+    preset: "vercel",
+  },
 });
